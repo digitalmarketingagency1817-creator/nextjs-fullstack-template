@@ -1,0 +1,37 @@
+{
+  "HomePage": {
+    "title": "Welcome to our app",
+    "description": "Built with Next.js, tRPC, Better Auth, Prisma, and more."
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back!",
+    "noPosts": "No posts yet. Create your first one!"
+  },
+  "Auth": {
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "signOut": "Sign out",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
+  },
+  "Settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create"
+  }
+}

@@ -1,5 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
+import createIntlMiddleware from "next-intl/middleware";
+import { routing } from "@/i18n/routing";
+
+const intlMiddleware = createIntlMiddleware(routing);
 
 const protectedRoutes = ["/dashboard", "/settings"];
 
@@ -16,7 +20,8 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  return NextResponse.next();
+  // Run i18n middleware for locale detection (cookie-based, no URL prefix)
+  return intlMiddleware(request);
 }
 
 export const config = {
