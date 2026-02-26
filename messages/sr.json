@@ -1,0 +1,37 @@
+{
+  "HomePage": {
+    "title": "Dobrodošli u našu aplikaciju",
+    "description": "Napravljeno sa Next.js, tRPC, Better Auth, Prisma i više."
+  },
+  "Dashboard": {
+    "title": "Kontrolna tabla",
+    "welcome": "Dobrodošli nazad!",
+    "noPosts": "Još nema objava. Kreirajte prvu!"
+  },
+  "Auth": {
+    "signIn": "Prijavite se",
+    "signUp": "Registrujte se",
+    "signOut": "Odjavite se",
+    "email": "Email",
+    "password": "Lozinka",
+    "name": "Ime",
+    "forgotPassword": "Zaboravili ste lozinku?",
+    "noAccount": "Nemate nalog?",
+    "hasAccount": "Već imate nalog?"
+  },
+  "Settings": {
+    "title": "Podešavanja",
+    "language": "Jezik",
+    "theme": "Tema"
+  },
+  "Common": {
+    "loading": "Učitavanje...",
+    "error": "Nešto je pošlo po zlu",
+    "retry": "Pokušajte ponovo",
+    "save": "Sačuvaj",
+    "cancel": "Otkaži",
+    "delete": "Obriši",
+    "edit": "Uredi",
+    "create": "Kreiraj"
+  }
+}
