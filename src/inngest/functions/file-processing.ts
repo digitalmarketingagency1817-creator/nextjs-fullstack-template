@@ -13,8 +13,9 @@ export const processUploadedFile = inngest.createFunction(
 
     // Step 1: Process the file (e.g., generate thumbnail, extract metadata)
     await step.run("process-file", async () => {
-      console.log(`Processing file: ${blobUrl} (${fileType})`);
       // Add your file processing logic here
+      // e.g., generate thumbnails, extract metadata, virus scan, etc.
+      return { blobUrl, fileType, processed: true };
     });
   }
 );
