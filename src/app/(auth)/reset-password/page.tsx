@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resetPasswordSchema, type ResetPasswordInput } from "@/lib/validators";
-import { forgetPassword } from "@/server/auth/client";
+import { authClient } from "@/server/auth/client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -37,7 +37,7 @@ export default function ResetPasswordPage() {
 
   const onSubmit = async (data: ResetPasswordInput) => {
     setError(undefined);
-    const { error } = await forgetPassword({
+    const { error } = await authClient.requestPasswordReset({
       email: data.email,
       redirectTo: "/reset-password",
     });

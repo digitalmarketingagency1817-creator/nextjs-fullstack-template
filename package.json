@@ -14,7 +14,11 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,mdx,css,yml,yaml}\"",
     "typecheck": "tsc --noEmit",
     "spellcheck": "cspell \"src/**/*.{ts,tsx}\"",
+    "postinstall": "prisma generate",
     "prepare": "husky",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate",
     "inngest:dev": "npx inngest-cli@latest dev"
   },
   "dependencies": {
