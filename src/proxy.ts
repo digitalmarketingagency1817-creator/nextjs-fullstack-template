@@ -7,10 +7,9 @@ const intlMiddleware = createIntlMiddleware(routing);
 
 const protectedRoutes = ["/dashboard", "/settings"];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Check if route is protected
   const isProtected = protectedRoutes.some((route) => pathname.startsWith(route));
 
   if (isProtected) {
@@ -20,13 +19,9 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Run i18n middleware for locale detection (cookie-based, no URL prefix)
   return intlMiddleware(request);
 }
 
 export const config = {
-  matcher: [
-    // Match all pathnames except API routes, static files, etc.
-    "/((?!api|_next|_vercel|.*\\..*).*)",
-  ],
+  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };
