@@ -30,6 +30,7 @@ export const newPasswordSchema = z
 export const createPostSchema = z.object({
   title: z.string().min(1, "Title is required").max(200),
   content: z.string().min(1, "Content is required"),
+  imageUrl: z.url("Invalid image URL").optional(),
 });
 
 // ===== Inferred types =====

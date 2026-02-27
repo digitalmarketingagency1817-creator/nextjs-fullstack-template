@@ -1,7 +1,10 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Link } from "@/i18n/navigation";
 import { resetPasswordSchema, type ResetPasswordInput } from "@/lib/validators";
 import { authClient } from "@/server/auth/client";
 import { Button } from "@/components/ui/button";
@@ -14,10 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import Link from "next/link";
 
 export function ResetPasswordForm() {
+  const t = useTranslations("AuthForms");
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string>();
 
@@ -53,9 +55,9 @@ export function ResetPasswordForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("emailLabel")}</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="john@example.com" {...field} />
+                    <Input type="email" placeholder={t("emailPlaceholder")} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -63,18 +65,16 @@ export function ResetPasswordForm() {
             />
             {error && <p className="text-destructive text-sm">{error}</p>}
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-              {form.formState.isSubmitting ? "Sending..." : "Send reset link"}
+              {form.formState.isSubmitting ? t("resetSubmitting") : t("resetSubmit")}
             </Button>
           </form>
         </Form>
       ) : (
-        <p className="text-muted-foreground text-center text-sm">
-          If an account exists with that email, you&apos;ll receive a reset link shortly.
-        </p>
+        <p className="text-muted-foreground text-center text-sm">{t("resetSent")}</p>
       )}
       <p className="mt-4 text-center text-sm">
         <Link href="/sign-in" className="text-muted-foreground underline-offset-4 hover:underline">
-          Back to sign in
+          {t("backToSignIn")}
         </Link>
       </p>
     </>

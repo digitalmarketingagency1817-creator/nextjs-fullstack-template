@@ -1,7 +1,164 @@
 {
   "HomePage": {
     "title": "Dobrodošli u našu aplikaciju",
-    "description": "Napravljeno sa Next.js, tRPC, Better Auth, Prisma i više."
+    "description": "Napravljeno sa Next.js, tRPC, Better Auth, Prisma i više.",
+    "dashboardCta": "Kontrolna tabla",
+    "signInCta": "Prijavite se"
+  },
+  "LocaleSwitcher": {
+    "ariaLabel": "Promeni jezik",
+    "english": "Engleski",
+    "serbian": "Srpski"
+  },
+  "Theme": {
+    "toggleAriaLabel": "Promeni temu"
+  },
+  "AuthPages": {
+    "signInTitle": "Dobrodošli nazad",
+    "signInDescription": "Prijavite se na svoj nalog",
+    "signUpTitle": "Kreirajte nalog",
+    "signUpDescription": "Unesite svoje podatke da biste započeli",
+    "resetPasswordTitle": "Resetuj lozinku",
+    "resetPasswordDescription": "Unesite email da biste dobili link za reset lozinke.",
+    "verifyEmailTitle": "Proverite svoj email",
+    "verifyEmailDescription": "Poslali smo vam verifikacioni link. Proverite svoj email da biste verifikovali nalog.",
+    "verifyEmailHint": "Niste dobili email? Proverite spam folder ili pokušajte ponovo sa registracijom."
+  },
+  "AuthForms": {
+    "emailLabel": "Email",
+    "passwordLabel": "Lozinka",
+    "nameLabel": "Ime",
+    "emailPlaceholder": "john@example.com",
+    "passwordPlaceholder": "••••••••",
+    "namePlaceholder": "Pera Perić",
+    "signInSubmitting": "Prijavljivanje...",
+    "signInSubmit": "Prijavite se",
+    "signInNoAccount": "Nemate nalog?",
+    "signInNoAccountLink": "Registrujte se",
+    "forgotPassword": "Zaboravili ste lozinku?",
+    "signUpSubmitting": "Kreiranje naloga...",
+    "signUpSubmit": "Registrujte se",
+    "signUpHasAccount": "Već imate nalog?",
+    "signUpHasAccountLink": "Prijavite se",
+    "resetSubmitting": "Slanje...",
+    "resetSubmit": "Pošalji link za reset",
+    "resetSent": "Ako nalog sa tim emailom postoji, uskoro ćete dobiti link za reset.",
+    "backToSignIn": "Nazad na prijavu"
+  },
+  "DashboardPage": {
+    "title": "Kontrolna tabla",
+    "welcome": "Dobrodošli nazad, {name}!"
+  },
+  "DashboardPostList": {
+    "empty": "Još nema objava. Kreirajte svoju prvu objavu!"
+  },
+  "CreatePost": {
+    "newPost": "Nova objava",
+    "title": "Kreiraj objavu",
+    "description": "Napišite novu objavu. Biće vidljiva svima.",
+    "titleLabel": "Naslov",
+    "titlePlaceholder": "Naslov objave",
+    "contentLabel": "Sadržaj",
+    "contentPlaceholder": "Napišite sadržaj objave...",
+    "imageLabel": "Slika (opciono)",
+    "imagePreviewAlt": "Pregled slike objave",
+    "uploadErrorFallback": "Otpremanje nije uspelo",
+    "uploadTypeError": "Dozvoljene su samo JPEG, PNG i WebP slike",
+    "uploading": "Otpremanje...",
+    "dropzonePrompt": "Prevucite i pustite ili kliknite za otpremanje",
+    "dropzoneHint": "JPEG, PNG ili WebP",
+    "createSubmitting": "Kreiranje...",
+    "createSubmit": "Kreiraj objavu"
+  },
+  "SettingsPage": {
+    "title": "Podešavanja",
+    "description": "Upravljajte podešavanjima naloga.",
+    "profileTitle": "Profil",
+    "profileDescription": "Informacije o vašem profilu.",
+    "name": "Ime",
+    "email": "Email"
+  },
+  "Sidebar": {
+    "appName": "Moja aplikacija",
+    "dashboard": "Kontrolna tabla",
+    "settings": "Podešavanja"
+  },
+  "Header": {
+    "settings": "Podešavanja",
+    "signOut": "Odjavite se"
+  },
+  "MarketingLayout": {
+    "home": "Početna",
+    "pricing": "Cene",
+    "signIn": "Prijava",
+    "rightsReserved": "© {year} MyApp. Sva prava zadržana."
+  },
+  "PricingPage": {
+    "title": "Cene",
+    "subtitle": "Izaberite paket koji vam odgovara.",
+    "popular": "Najpopularniji",
+    "perMonth": "/mesečno",
+    "getStarted": "Započni",
+    "contactUs": "Kontaktirajte nas",
+    "plans": [
+      {
+        "name": "Besplatno",
+        "price": "$0",
+        "description": "Počnite besplatno",
+        "customPrice": false,
+        "popular": false,
+        "features": ["Do 3 projekta", "Osnovna analitika", "Podrška zajednice"]
+      },
+      {
+        "name": "Pro",
+        "price": "$19",
+        "description": "Za rastuće timove",
+        "customPrice": false,
+        "popular": true,
+        "features": [
+          "Neograničeni projekti",
+          "Napredna analitika",
+          "Prioritetna podrška",
+          "Prilagođeni domeni"
+        ]
+      },
+      {
+        "name": "Enterprise",
+        "price": "Po dogovoru",
+        "description": "Za velike organizacije",
+        "customPrice": true,
+        "popular": false,
+        "features": [
+          "Sve iz Pro paketa",
+          "SSO",
+          "Posvećena podrška",
+          "SLA",
+          "Prilagođene integracije"
+        ]
+      }
+    ]
+  },
+  "Errors": {
+    "tryAgain": "Pokušajte ponovo",
+    "globalTitle": "Nešto je pošlo po zlu",
+    "globalDescription": "Došlo je do neočekivane greške. Pokušajte ponovo.",
+    "authTitle": "Greška pri autentikaciji",
+    "authDescription": "Došlo je do greške pri autentikaciji. Pokušajte ponovo.",
+    "dashboardTitle": "Greška na kontrolnoj tabli",
+    "dashboardDescription": "Došlo je do greške pri učitavanju kontrolne table. Pokušajte ponovo.",
+    "marketingTitle": "Greška na stranici",
+    "marketingDescription": "Došlo je do greške pri učitavanju ove stranice. Pokušajte ponovo.",
+    "queryFailed": "Učitavanje nije uspelo",
+    "unexpected": "Došlo je do neočekivane greške."
+  },
+  "Chat": {
+    "title": "AI Čet",
+    "inputPlaceholder": "Unesite poruku..."
+  },
+  "Upload": {
+    "uploading": "Otpremanje...",
+    "upload": "Otpremi",
+    "uploadFailed": "Otpremanje nije uspelo"
   },
   "Dashboard": {
     "title": "Kontrolna tabla",

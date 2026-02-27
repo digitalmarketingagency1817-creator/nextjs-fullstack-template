@@ -11,7 +11,7 @@ export const auth = betterAuth({
 
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
+    requireEmailVerification: !!process.env.RESEND_API_KEY,
     sendResetPassword: async ({ user, url }) => {
       // Don't await — prevent timing attacks
       void sendEmail({

@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import { AlertTriangle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function MarketingError({
   error,
@@ -11,6 +12,8 @@ export default function MarketingError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = useTranslations("Errors");
+
   useEffect(() => {
     console.error("Marketing error:", error);
   }, [error]);
@@ -18,11 +21,11 @@ export default function MarketingError({
   return (
     <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4">
       <AlertTriangle className="text-destructive h-12 w-12" />
-      <h2 className="text-xl font-semibold">Page Error</h2>
+      <h2 className="text-xl font-semibold">{t("marketingTitle")}</h2>
       <p className="text-muted-foreground max-w-md text-center text-sm">
-        Something went wrong loading this page. Please try again.
+        {t("marketingDescription")}
       </p>
-      <Button onClick={reset}>Try again</Button>
+      <Button onClick={reset}>{t("tryAgain")}</Button>
     </div>
   );
 }

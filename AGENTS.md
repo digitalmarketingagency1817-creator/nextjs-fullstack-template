@@ -17,7 +17,7 @@ Production-ready fullstack template. Next.js 16 App Router with tRPC v11, Better
 - **Forms:** react-hook-form + zod (mandatory for ALL forms)
 - **URL State:** nuqs 2
 - **Client State:** Zustand 5
-- **Auth:** Better Auth (email/password, email verification, database sessions)
+- **Auth:** Better Auth (email/password, conditional email verification, database sessions)
 - **Database:** Prisma 7 with `@prisma/adapter-neon` — import from `@/generated/prisma`
 - **Email:** Resend + React Email
 - **AI:** Vercel AI SDK v6 (`ai` + `@ai-sdk/openai`)
@@ -36,15 +36,15 @@ src/
 ├── app/                    # Next.js App Router
 │   ├── (auth)/             # Auth pages (sign-in, sign-up, verify-email, reset-password)
 │   ├── (dashboard)/        # Protected pages with sidebar layout
-│   ├── (marketing)/        # Public pages (pricing)
+│   ├── (marketing)/        # Public pages (landing, pricing)
 │   └── api/                # API routes (tRPC, auth, chat, upload, inngest)
 ├── components/
 │   ├── ui/                 # shadcn/ui components
 │   ├── forms/              # Form components (react-hook-form + zod)
 │   ├── layout/             # Layout (header, sidebar)
-│   ├── dashboard/          # Dashboard-specific components
+│   ├── dashboard/          # Dashboard-specific (post-list, create-post-form)
 │   ├── providers/          # Root providers (Theme, tRPC, nuqs, Tooltip, Toaster)
-│   └── shared/             # Shared (error-boundary, loading, theme-toggle, chat, upload)
+│   └── shared/             # Shared (error-boundary, loading, theme-toggle, locale-switcher, chat, upload)
 ├── server/
 │   ├── db/                 # Prisma client singleton
 │   ├── auth/               # Better Auth config + client
@@ -104,7 +104,7 @@ export function ClientComponent() {
 **Rules:**
 
 - ✅ `prefetch()` in Server Component → `HydrateClient` wrapper → `useSuspenseQuery` in client
-- ✅ `HydrateClient` handles HydrationBoundary + Suspense + ErrorBoundary
+- ✅ `HydrateClient` handles HydrationBoundary + Suspense + QueryErrorBoundary via `loadingFallback` prop
 - ❌ NEVER use `useState` + `fetch` + `useEffect` for data fetching
 - ❌ NEVER use manual loading/error state — TanStack Query + Suspense handles it
 

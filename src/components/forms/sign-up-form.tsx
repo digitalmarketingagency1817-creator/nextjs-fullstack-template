@@ -1,7 +1,10 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Link, useRouter } from "@/i18n/navigation";
 import { signUpSchema, type SignUpInput } from "@/lib/validators";
 import { signUp } from "@/server/auth/client";
 import { Button } from "@/components/ui/button";
@@ -14,11 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Link from "next/link";
 
 export function SignUpForm() {
+  const t = useTranslations("AuthForms");
   const router = useRouter();
   const [error, setError] = useState<string>();
 
@@ -33,7 +34,7 @@ export function SignUpForm() {
 
   const onSubmit = async (data: SignUpInput) => {
     setError(undefined);
-    const { error } = await signUp.email({
+    const { error, data: result } = await signUp.email({
       ...data,
       callbackURL: "/dashboard",
     });
@@ -43,7 +44,7 @@ export function SignUpForm() {
       return;
     }
 
-    router.push("/verify-email");
+    router.push(result?.token ? "/dashboard" : "/verify-email");
   };
 
   return (
@@ -54,9 +55,9 @@ export function SignUpForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>{t("nameLabel")}</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input placeholder={t("namePlaceholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -67,9 +68,9 @@ export function SignUpForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t("emailLabel")}</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="john@example.com" {...field} />
+                <Input type="email" placeholder={t("emailPlaceholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -80,22 +81,22 @@ export function SignUpForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t("passwordLabel")}</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} />
+                <Input type="password" placeholder={t("passwordPlaceholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        {error && <p className="text-sm text-destructive">{error}</p>}
+        {error && <p className="text-destructive text-sm">{error}</p>}
         <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "Creating account..." : "Sign up"}
+          {form.formState.isSubmitting ? t("signUpSubmitting") : t("signUpSubmit")}
         </Button>
-        <p className="text-center text-sm text-muted-foreground">
-          Already have an account?{" "}
+        <p className="text-muted-foreground text-center text-sm">
+          {t("signUpHasAccount")}{" "}
           <Link href="/sign-in" className="text-primary underline-offset-4 hover:underline">
-            Sign in
+            {t("signUpHasAccountLink")}
           </Link>
         </p>
       </form>

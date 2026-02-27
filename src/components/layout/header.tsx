@@ -1,7 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
+import { LogOut, Menu, Settings } from "lucide-react";
+import { useRouter } from "@/i18n/navigation";
+import { useUIStore } from "@/stores/ui-store";
+import { signOut, useSession } from "@/server/auth/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,13 +14,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useSession, signOut } from "@/server/auth/client";
-import { useRouter } from "next/navigation";
-import { Menu, LogOut, Settings } from "lucide-react";
-import { useUIStore } from "@/stores/ui-store";
+import { LocaleSwitcher } from "@/components/shared/locale-switcher";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 export function Header() {
+  const t = useTranslations("Header");
   const { data: session } = useSession();
   const router = useRouter();
   const toggleSidebar = useUIStore((s) => s.toggleSidebar);
@@ -31,6 +34,7 @@ export function Header() {
         <Menu className="h-5 w-5" />
       </Button>
       <div className="flex-1" />
+      <LocaleSwitcher />
       <ThemeToggle />
       {session?.user && (
         <DropdownMenu>
@@ -58,12 +62,12 @@ export function Header() {
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => router.push("/settings")}>
               <Settings className="mr-2 h-4 w-4" />
-              Settings
+              {t("settings")}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut}>
               <LogOut className="mr-2 h-4 w-4" />
-              Sign out
+              {t("signOut")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

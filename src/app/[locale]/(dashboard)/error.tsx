@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import { AlertTriangle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function DashboardError({
   error,
@@ -11,6 +12,8 @@ export default function DashboardError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = useTranslations("Errors");
+
   useEffect(() => {
     console.error("Dashboard error:", error);
   }, [error]);
@@ -18,11 +21,11 @@ export default function DashboardError({
   return (
     <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4">
       <AlertTriangle className="text-destructive h-12 w-12" />
-      <h2 className="text-xl font-semibold">Dashboard Error</h2>
+      <h2 className="text-xl font-semibold">{t("dashboardTitle")}</h2>
       <p className="text-muted-foreground max-w-md text-center text-sm">
-        Something went wrong loading the dashboard. Please try again.
+        {t("dashboardDescription")}
       </p>
-      <Button onClick={reset}>Try again</Button>
+      <Button onClick={reset}>{t("tryAgain")}</Button>
     </div>
   );
 }

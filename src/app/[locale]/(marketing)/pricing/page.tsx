@@ -1,36 +1,27 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { getTranslations } from "next-intl/server";
 import { Check } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-const plans = [
-  {
-    name: "Free",
-    price: "$0",
-    description: "Get started for free",
-    features: ["Up to 3 projects", "Basic analytics", "Community support"],
-  },
-  {
-    name: "Pro",
-    price: "$19",
-    description: "For growing teams",
-    features: ["Unlimited projects", "Advanced analytics", "Priority support", "Custom domains"],
-    popular: true,
-  },
-  {
-    name: "Enterprise",
-    price: "Custom",
-    description: "For large organizations",
-    features: ["Everything in Pro", "SSO", "Dedicated support", "SLA", "Custom integrations"],
-  },
-];
+type PricingPlan = {
+  name: string;
+  price: string;
+  description: string;
+  customPrice: boolean;
+  popular: boolean;
+  features: string[];
+};
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const t = await getTranslations("PricingPage");
+  const plans = t.raw("plans") as PricingPlan[];
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-16">
       <div className="mb-12 text-center">
-        <h1 className="text-4xl font-bold">Pricing</h1>
-        <p className="text-muted-foreground mt-4 text-lg">Choose the plan that works for you.</p>
+        <h1 className="text-4xl font-bold">{t("title")}</h1>
+        <p className="text-muted-foreground mt-4 text-lg">{t("subtitle")}</p>
       </div>
       <div className="grid gap-6 md:grid-cols-3">
         {plans.map((plan) => (
@@ -38,13 +29,13 @@ export default function PricingPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>{plan.name}</CardTitle>
-                {plan.popular && <Badge>Popular</Badge>}
+                {plan.popular && <Badge>{t("popular")}</Badge>}
               </div>
               <CardDescription>{plan.description}</CardDescription>
               <p className="mt-2 text-3xl font-bold">
                 {plan.price}
-                {plan.price !== "Custom" && (
-                  <span className="text-muted-foreground text-sm font-normal">/month</span>
+                {!plan.customPrice && (
+                  <span className="text-muted-foreground text-sm font-normal">{t("perMonth")}</span>
                 )}
               </p>
             </CardHeader>
@@ -58,7 +49,7 @@ export default function PricingPage() {
                 ))}
               </ul>
               <Button className="mt-6 w-full" variant={plan.popular ? "default" : "outline"}>
-                {plan.price === "Custom" ? "Contact us" : "Get started"}
+                {plan.customPrice ? t("contactUs") : t("getStarted")}
               </Button>
             </CardContent>
           </Card>

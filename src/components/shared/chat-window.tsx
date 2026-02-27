@@ -1,14 +1,16 @@
 "use client";
 
+import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Send } from "lucide-react";
-import { useState } from "react";
 
 export function ChatWindow() {
+  const t = useTranslations("Chat");
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat",
@@ -28,7 +30,7 @@ export function ChatWindow() {
   return (
     <Card className="flex h-[600px] flex-col">
       <CardHeader>
-        <CardTitle>AI Chat</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-4 overflow-hidden">
         <div className="flex-1 space-y-4 overflow-y-auto">
@@ -58,7 +60,7 @@ export function ChatWindow() {
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Type a message..."
+            placeholder={t("inputPlaceholder")}
             disabled={isLoading}
           />
           <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>

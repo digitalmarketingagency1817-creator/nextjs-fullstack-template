@@ -19,6 +19,11 @@ interface SendEmailParams {
 }
 
 export async function sendEmail({ to, subject, text, html }: SendEmailParams) {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("[email] RESEND_API_KEY not set, skipping email:", { to, subject });
+    return;
+  }
+
   const from = process.env.EMAIL_FROM ?? "noreply@yourdomain.com";
   const resend = getResend();
 

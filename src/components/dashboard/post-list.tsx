@@ -1,20 +1,22 @@
 "use client";
 
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function PostList({ limit = 10 }: { limit?: number }) {
+  const t = useTranslations("DashboardPostList");
+  const locale = useLocale();
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(trpc.post.list.queryOptions({ limit }));
 
   if (data.posts.length === 0) {
     return (
       <Card>
-        <CardContent className="text-muted-foreground py-8 text-center">
-          No posts yet. Create your first post!
-        </CardContent>
+        <CardContent className="text-muted-foreground py-8 text-center">{t("empty")}</CardContent>
       </Card>
     );
   }
@@ -23,6 +25,17 @@ export function PostList({ limit = 10 }: { limit?: number }) {
     <div className="space-y-4">
       {data.posts.map((post) => (
         <Card key={post.id}>
+          {post.imageUrl && (
+            <div className="overflow-hidden rounded-t-lg">
+              <Image
+                src={post.imageUrl}
+                alt={post.title}
+                width={800}
+                height={400}
+                className="h-48 w-full object-cover"
+              />
+            </div>
+          )}
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">{post.title}</CardTitle>
@@ -40,7 +53,7 @@ export function PostList({ limit = 10 }: { limit?: number }) {
           <CardContent>
             <p className="text-muted-foreground line-clamp-2 text-sm">{post.content}</p>
             <p className="text-muted-foreground mt-2 text-xs">
-              {new Date(post.createdAt).toLocaleDateString()}
+              {new Date(post.createdAt).toLocaleDateString(locale)}
             </p>
           </CardContent>
         </Card>

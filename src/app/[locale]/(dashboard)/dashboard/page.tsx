@@ -1,14 +1,18 @@
-import { auth } from "@/server/auth";
+import { Suspense } from "react";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import { auth } from "@/server/auth";
 import { HydrateClient, prefetch, trpc } from "@/trpc/server";
-import { PostListSkeleton } from "@/components/shared/loading-skeleton";
 import { PostList } from "@/components/dashboard/post-list";
+import { CreatePostForm } from "@/components/dashboard/create-post-form";
+import { PostListSkeleton } from "@/components/shared/loading-skeleton";
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+  const t = await getTranslations("DashboardPage");
 
   if (!session) redirect("/sign-in");
 
@@ -16,9 +20,12 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back, {session.user.name}!</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">{t("title")}</h1>
+          <p className="text-muted-foreground">{t("welcome", { name: session.user.name ?? "" })}</p>
+        </div>
+        <CreatePostForm />
       </div>
 
       <HydrateClient loadingFallback={<PostListSkeleton />}>

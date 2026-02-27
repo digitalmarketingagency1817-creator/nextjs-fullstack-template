@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import { AlertTriangle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function GlobalError({
   error,
@@ -11,6 +12,8 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = useTranslations("Errors");
+
   useEffect(() => {
     console.error("Global error:", error);
   }, [error]);
@@ -18,11 +21,9 @@ export default function GlobalError({
   return (
     <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4">
       <AlertTriangle className="text-destructive h-12 w-12" />
-      <h2 className="text-xl font-semibold">Something went wrong</h2>
-      <p className="text-muted-foreground max-w-md text-center text-sm">
-        An unexpected error occurred. Please try again.
-      </p>
-      <Button onClick={reset}>Try again</Button>
+      <h2 className="text-xl font-semibold">{t("globalTitle")}</h2>
+      <p className="text-muted-foreground max-w-md text-center text-sm">{t("globalDescription")}</p>
+      <Button onClick={reset}>{t("tryAgain")}</Button>
     </div>
   );
 }

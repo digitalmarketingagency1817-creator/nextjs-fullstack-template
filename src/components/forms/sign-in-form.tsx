@@ -1,7 +1,10 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Link, useRouter } from "@/i18n/navigation";
 import { signInSchema, type SignInInput } from "@/lib/validators";
 import { signIn } from "@/server/auth/client";
 import { Button } from "@/components/ui/button";
@@ -14,11 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Link from "next/link";
 
 export function SignInForm() {
+  const t = useTranslations("AuthForms");
   const router = useRouter();
   const [error, setError] = useState<string>();
 
@@ -53,9 +54,9 @@ export function SignInForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t("emailLabel")}</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="john@example.com" {...field} />
+                <Input type="email" placeholder={t("emailPlaceholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -66,22 +67,22 @@ export function SignInForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t("passwordLabel")}</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} />
+                <Input type="password" placeholder={t("passwordPlaceholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        {error && <p className="text-sm text-destructive">{error}</p>}
+        {error && <p className="text-destructive text-sm">{error}</p>}
         <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "Signing in..." : "Sign in"}
+          {form.formState.isSubmitting ? t("signInSubmitting") : t("signInSubmit")}
         </Button>
-        <p className="text-center text-sm text-muted-foreground">
-          Don&apos;t have an account?{" "}
+        <p className="text-muted-foreground text-center text-sm">
+          {t("signInNoAccount")}{" "}
           <Link href="/sign-up" className="text-primary underline-offset-4 hover:underline">
-            Sign up
+            {t("signInNoAccountLink")}
           </Link>
         </p>
         <p className="text-center text-sm">
@@ -89,7 +90,7 @@ export function SignInForm() {
             href="/reset-password"
             className="text-muted-foreground underline-offset-4 hover:underline"
           >
-            Forgot password?
+            {t("forgotPassword")}
           </Link>
         </p>
       </form>

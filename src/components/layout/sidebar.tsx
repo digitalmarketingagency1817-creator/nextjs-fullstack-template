@@ -1,26 +1,26 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Settings, Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useTranslations } from "next-intl";
+import { LayoutDashboard, Menu, Settings } from "lucide-react";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { cn } from "@/lib/utils";
 import { useUIStore } from "@/stores/ui-store";
-
-const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/settings", label: "Settings", icon: Settings },
-];
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 function NavContent() {
+  const t = useTranslations("Sidebar");
   const pathname = usePathname();
+  const navItems = [
+    { href: "/dashboard", label: t("dashboard"), icon: LayoutDashboard },
+    { href: "/settings", label: t("settings"), icon: Settings },
+  ];
 
   return (
     <nav className="flex flex-col gap-1 p-4">
       <div className="mb-6 px-2">
-        <h2 className="text-lg font-semibold">My App</h2>
+        <h2 className="text-lg font-semibold">{t("appName")}</h2>
       </div>
       {navItems.map((item) => (
         <Button

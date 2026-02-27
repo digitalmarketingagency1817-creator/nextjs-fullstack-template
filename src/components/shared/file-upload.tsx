@@ -1,11 +1,12 @@
 "use client";
 
-import { upload } from "@vercel/blob/client";
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import { useMutation } from "@tanstack/react-query";
+import { upload } from "@vercel/blob/client";
+import { AlertCircle, Loader2, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Upload, Loader2, AlertCircle } from "lucide-react";
 
 interface FileUploadProps {
   onUploadComplete?: (url: string) => void;
@@ -18,6 +19,7 @@ export function FileUpload({
   accept = "image/*",
   handleUploadUrl = "/api/upload",
 }: FileUploadProps) {
+  const t = useTranslations("Upload");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { mutate, isPending, isError, error } = useMutation({
@@ -43,24 +45,24 @@ export function FileUpload({
     <div className="space-y-2">
       <div className="flex items-center gap-2">
         <Input ref={inputRef} type="file" accept={accept} disabled={isPending} />
-        <Button onClick={handleUpload} disabled={isPending} size="sm">
+        <Button type="button" onClick={handleUpload} disabled={isPending} size="sm">
           {isPending ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Uploading...
+              {t("uploading")}
             </>
           ) : (
             <>
               <Upload className="mr-2 h-4 w-4" />
-              Upload
+              {t("upload")}
             </>
           )}
         </Button>
       </div>
       {isError && (
-        <p className="flex items-center gap-1 text-sm text-destructive">
+        <p className="text-destructive flex items-center gap-1 text-sm">
           <AlertCircle className="h-4 w-4" />
-          {error instanceof Error ? error.message : "Upload failed"}
+          {error instanceof Error ? error.message : t("uploadFailed")}
         </p>
       )}
     </div>

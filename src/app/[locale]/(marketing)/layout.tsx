@@ -1,13 +1,15 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { LocaleSwitcher } from "@/components/shared/locale-switcher";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/pricing", label: "Pricing" },
-];
+export default async function MarketingLayout({ children }: { children: React.ReactNode }) {
+  const t = await getTranslations("MarketingLayout");
+  const navLinks = [
+    { href: "/", label: t("home") },
+    { href: "/pricing", label: t("pricing") },
+  ];
 
-export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b">
@@ -25,8 +27,9 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
                 {link.label}
               </Link>
             ))}
+            <LocaleSwitcher />
             <Button asChild size="sm">
-              <Link href="/sign-in">Sign In</Link>
+              <Link href="/sign-in">{t("signIn")}</Link>
             </Button>
           </nav>
         </div>
@@ -35,21 +38,18 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
       <main className="flex-1">{children}</main>
 
       <footer className="border-t">
-        <div className="container mx-auto px-4 py-8">
-          <Separator className="mb-8" />
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-muted-foreground text-sm">
-              &copy; {new Date().getFullYear()} MyApp. All rights reserved.
-            </p>
-            <nav className="flex gap-4">
-              <Link
-                href="/pricing"
-                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-              >
-                Pricing
-              </Link>
-            </nav>
-          </div>
+        <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 py-6 sm:flex-row">
+          <p className="text-muted-foreground text-sm">
+            {t("rightsReserved", { year: new Date().getFullYear() })}
+          </p>
+          <nav className="flex gap-4">
+            <Link
+              href="/pricing"
+              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+            >
+              {t("pricing")}
+            </Link>
+          </nav>
         </div>
       </footer>
     </div>

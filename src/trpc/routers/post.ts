@@ -30,24 +30,23 @@ export const postRouter = createTRPCRouter({
       return { posts, nextCursor };
     }),
 
-  byId: baseProcedure
-    .input(z.object({ id: z.string() }))
-    .query(async ({ ctx, input }) => {
-      return ctx.db.post.findUniqueOrThrow({
-        where: { id: input.id },
-        include: {
-          author: {
-            select: { id: true, name: true, image: true },
-          },
+  byId: baseProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
+    return ctx.db.post.findUniqueOrThrow({
+      where: { id: input.id },
+      include: {
+        author: {
+          select: { id: true, name: true, image: true },
         },
-      });
-    }),
+      },
+    });
+  }),
 
   create: protectedProcedure
     .input(
       z.object({
         title: z.string().min(1).max(200),
         content: z.string().min(1),
+        imageUrl: z.url().optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -65,6 +64,7 @@ export const postRouter = createTRPCRouter({
         id: z.string(),
         title: z.string().min(1).max(200).optional(),
         content: z.string().min(1).optional(),
+        imageUrl: z.url().nullish(),
       })
     )
     .mutation(async ({ ctx, input }) => {
