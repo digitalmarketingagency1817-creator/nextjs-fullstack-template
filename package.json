@@ -7,7 +7,7 @@
   "scripts": {
     "clean:install": "rm -rf node_modules package-lock.json .next && npm install",
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "prisma generate && prisma db push && next build",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
