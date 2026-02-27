@@ -4,36 +4,22 @@ import { z } from "zod/v4";
 export const env = createEnv({
   // Server-side env vars (never exposed to client)
   server: {
-    // Database (Neon)
     DATABASE_URL: z.url(),
-    DIRECT_URL: z.url(),
-
-    // Auth (Better Auth)
+    DIRECT_URL: z.url().optional(),
     BETTER_AUTH_SECRET: z.string().min(32),
-    BETTER_AUTH_URL: z.url(),
-
-    // Email (Resend)
-    RESEND_API_KEY: z.string().startsWith("re_"),
-    EMAIL_FROM: z.email(),
-
-    // AI (Vercel AI SDK) — at least one should be set
+    BETTER_AUTH_URL: z.url().optional(),
+    RESEND_API_KEY: z.string().startsWith("re_").optional(),
+    EMAIL_FROM: z.email().optional(),
     OPENAI_API_KEY: z.string().startsWith("sk-").optional(),
     AI_GATEWAY_API_KEY: z.string().min(1).optional(),
-
-    // File Storage (Vercel Blob)
-    BLOB_READ_WRITE_TOKEN: z.string().startsWith("vercel_blob_"),
-
-    // Inngest
+    BLOB_READ_WRITE_TOKEN: z.string().startsWith("vercel_blob_").optional(),
     INNGEST_EVENT_KEY: z.string().min(1).optional(),
     INNGEST_SIGNING_KEY: z.string().min(1).optional(),
-
-    // Node environment
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   },
 
-  // Client-side env vars (must be prefixed with NEXT_PUBLIC_)
   client: {
-    NEXT_PUBLIC_APP_URL: z.url(),
+    NEXT_PUBLIC_APP_URL: z.url().optional(),
   },
 
   // Runtime env — must destructure ALL vars explicitly
