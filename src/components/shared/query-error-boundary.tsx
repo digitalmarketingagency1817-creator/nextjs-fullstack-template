@@ -17,7 +17,7 @@ export function QueryErrorFallback({ error, resetErrorBoundary }: FallbackProps)
       </CardHeader>
       <CardContent className="space-y-3">
         <p className="text-muted-foreground text-sm">
-          {error.message || "An unexpected error occurred."}
+          {error instanceof Error ? error.message : "An unexpected error occurred."}
         </p>
         <Button size="sm" variant="outline" onClick={resetErrorBoundary}>
           Try again
