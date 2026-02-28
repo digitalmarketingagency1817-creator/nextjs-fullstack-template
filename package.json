@@ -39,7 +39,7 @@
     "@trpc/tanstack-react-query": "^11.10.0",
     "@vercel/blob": "^2.3.0",
     "ai": "^6.0.103",
-    "better-auth": "^1.4.19",
+    "better-auth": "^1.4.20",
     "class-variance-authority": "^0.7.1",
     "client-only": "^0.0.1",
     "clsx": "^2.1.1",
