@@ -68,7 +68,8 @@
     "metaDescription": "Your personal dashboard."
   },
   "DashboardPostList": {
-    "empty": "No posts yet. Create your first post!"
+    "empty": "No posts yet. Create your first post!",
+    "allLoaded": "You've reached the end."
   },
   "CreatePost": {
     "newPost": "New Post",

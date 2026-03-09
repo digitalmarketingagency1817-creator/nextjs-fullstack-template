@@ -68,7 +68,8 @@
     "metaDescription": "Vaša kontrolna tabla."
   },
   "DashboardPostList": {
-    "empty": "Još nema objava. Kreirajte svoju prvu objavu!"
+    "empty": "Još nema objava. Kreirajte svoju prvu objavu!",
+    "allLoaded": "Stigli ste do kraja."
   },
   "CreatePost": {
     "newPost": "Nova objava",
