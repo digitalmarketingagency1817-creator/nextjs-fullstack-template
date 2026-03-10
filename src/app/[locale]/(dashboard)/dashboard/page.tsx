@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/server/auth";
 import { HydrateClient, prefetch, trpc } from "@/trpc/server";
-import { PostList } from "@/components/dashboard/post-list";
+import { PostListInfinite } from "@/components/dashboard/post-list-infinite";
 import { CreatePostForm } from "@/components/dashboard/create-post-form";
 import { PostListSkeleton } from "@/components/shared/loading-skeleton";
 
@@ -25,7 +25,13 @@ export default async function DashboardPage() {
 
   if (!session) redirect("/sign-in");
 
-  prefetch(trpc.post.list.queryOptions({ limit: 10 }));
+  // Prefetch first page of infinite query — hydrates client before render
+  prefetch(
+    trpc.post.list.infiniteQueryOptions(
+      { limit: 10 },
+      { getNextPageParam: (lastPage) => lastPage.nextCursor ?? null }
+    )
+  );
 
   return (
     <div className="space-y-6">
@@ -38,7 +44,7 @@ export default async function DashboardPage() {
       </div>
 
       <HydrateClient loadingFallback={<PostListSkeleton />}>
-        <PostList limit={10} />
+        <PostListInfinite limit={10} />
       </HydrateClient>
     </div>
   );
