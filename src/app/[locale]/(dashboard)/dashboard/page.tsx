@@ -7,6 +7,7 @@ import { auth } from "@/server/auth";
 import { HydrateClient, prefetch, trpc } from "@/trpc/server";
 import { PostListInfinite } from "@/components/dashboard/post-list-infinite";
 import { CreatePostForm } from "@/components/dashboard/create-post-form";
+import { AiSummaryLab } from "@/components/dashboard/ai-summary-lab";
 import { PostListSkeleton } from "@/components/shared/loading-skeleton";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -43,9 +44,12 @@ export default async function DashboardPage() {
         <CreatePostForm />
       </div>
 
-      <HydrateClient loadingFallback={<PostListSkeleton />}>
-        <PostListInfinite limit={10} />
-      </HydrateClient>
+      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.7fr)_minmax(320px,420px)]">
+        <HydrateClient loadingFallback={<PostListSkeleton />}>
+          <PostListInfinite limit={10} />
+        </HydrateClient>
+        <AiSummaryLab />
+      </div>
     </div>
   );
 }

@@ -71,6 +71,20 @@
     "empty": "No posts yet. Create your first post!",
     "allLoaded": "You've reached the end."
   },
+  "AiSummaryLab": {
+    "title": "AI Summary Lab",
+    "description": "A tiny dashboard playground for the Vercel AI SDK + tRPC mutation flow.",
+    "badge": "AI SDK",
+    "inputLabel": "Content to summarize",
+    "inputPlaceholder": "Paste a product update, blog draft, or meeting notes...",
+    "helper": "This uses the protected ai.summarize tRPC mutation.",
+    "submit": "Generate summary",
+    "submitting": "Summarizing...",
+    "useSample": "Load sample text",
+    "resultLabel": "Summary output",
+    "resultPlaceholder": "Run the example to see the generated summary here.",
+    "errorFallback": "Could not generate a summary"
+  },
   "CreatePost": {
     "newPost": "New Post",
     "title": "Create Post",
