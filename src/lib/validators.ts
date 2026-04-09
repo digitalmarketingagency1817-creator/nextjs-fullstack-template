@@ -26,6 +26,13 @@ export const newPasswordSchema = z
     path: ["confirmPassword"],
   });
 
+// ===== User validators =====
+export const updateProfileSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters").max(100),
+});
+
+export type UpdateProfileInput = z.infer<typeof updateProfileSchema>;
+
 // ===== Post validators =====
 export const createPostSchema = z.object({
   title: z.string().min(1, "Title is required").max(200),
