@@ -33,9 +33,15 @@ export const createPostSchema = z.object({
   imageUrl: z.url("Invalid image URL").optional(),
 });
 
+// ===== AI validators =====
+export const aiSummarySchema = z.object({
+  text: z.string().min(20, "Please enter at least 20 characters").max(5000),
+});
+
 // ===== Inferred types =====
 export type SignInInput = z.infer<typeof signInSchema>;
 export type SignUpInput = z.infer<typeof signUpSchema>;
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
 export type NewPasswordInput = z.infer<typeof newPasswordSchema>;
 export type CreatePostInput = z.infer<typeof createPostSchema>;
+export type AiSummaryInput = z.infer<typeof aiSummarySchema>;

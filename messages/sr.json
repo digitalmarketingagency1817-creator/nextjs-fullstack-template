@@ -71,6 +71,20 @@
     "empty": "Još nema objava. Kreirajte svoju prvu objavu!",
     "allLoaded": "Stigli ste do kraja."
   },
+  "AiSummaryLab": {
+    "title": "AI laboratorija za sažetke",
+    "description": "Mali dashboard playground za Vercel AI SDK i tRPC mutation flow.",
+    "badge": "AI SDK",
+    "inputLabel": "Sadržaj za sažimanje",
+    "inputPlaceholder": "Nalijepite product update, draft blog posta ili bilješke sa sastanka...",
+    "helper": "Ovo koristi zaštićeni ai.summarize tRPC mutation.",
+    "submit": "Generiši sažetak",
+    "submitting": "Sažimam...",
+    "useSample": "Učitaj primjer",
+    "resultLabel": "Rezultat sažetka",
+    "resultPlaceholder": "Pokrenite primjer da ovdje vidite generisani sažetak.",
+    "errorFallback": "Nije moguće generisati sažetak"
+  },
   "CreatePost": {
     "newPost": "Nova objava",
     "title": "Kreiraj objavu",
