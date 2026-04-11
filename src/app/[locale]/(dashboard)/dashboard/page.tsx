@@ -7,7 +7,9 @@ import { auth } from "@/server/auth";
 import { HydrateClient, prefetch, trpc } from "@/trpc/server";
 import { PostListInfinite } from "@/components/dashboard/post-list-infinite";
 import { CreatePostForm } from "@/components/dashboard/create-post-form";
+import { StatsCards } from "@/components/dashboard/stats-cards";
 import { PostListSkeleton } from "@/components/shared/loading-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("DashboardPage");
@@ -15,6 +17,16 @@ export async function generateMetadata(): Promise<Metadata> {
     title: t("metaTitle"),
     description: t("metaDescription"),
   };
+}
+
+function StatsCardsSkeleton() {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <Skeleton key={i} className="h-[100px] w-full rounded-xl" />
+      ))}
+    </div>
+  );
 }
 
 export default async function DashboardPage() {
@@ -25,7 +37,8 @@ export default async function DashboardPage() {
 
   if (!session) redirect("/sign-in");
 
-  // Prefetch first page of infinite query — hydrates client before render
+  // Prefetch both queries in parallel — both hydrate the client before render
+  prefetch(trpc.stats.dashboard.queryOptions());
   prefetch(
     trpc.post.list.infiniteQueryOptions(
       { limit: 10 },
@@ -42,6 +55,11 @@ export default async function DashboardPage() {
         </div>
         <CreatePostForm />
       </div>
+
+      {/* Stats cards — server-prefetched, zero loading flash */}
+      <HydrateClient loadingFallback={<StatsCardsSkeleton />}>
+        <StatsCards />
+      </HydrateClient>
 
       <HydrateClient loadingFallback={<PostListSkeleton />}>
         <PostListInfinite limit={10} />
